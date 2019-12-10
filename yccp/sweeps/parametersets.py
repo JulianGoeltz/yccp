@@ -107,10 +107,10 @@ class ParameterSet(object):
             os.makedirs(folder)
 
         if osp.isfile(filename) and not overwrite:
-            log.error(
+            raise OSError(
+                errno.EEXIST,
                 "File {} exists and overwrite was not set to True".format(
                     filename))
-            raise OSError(errno.EEXIST)
         else:
             with open(filename, "w") as f:
                 pl.dump(self.data, stream=f)
